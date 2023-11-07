@@ -1,11 +1,27 @@
 import { useForm } from "react-hook-form";
-import { registerRequest } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
+import {useNavigate} from 'react-router-dom'
+
 
 function RegisterPage() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState:{
+    errors
+  } } = useForm();
+  const { singup, isAuth, user, errors: registerErrors } = useAuth();
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/tasks')
+    }
+  }, [isAuth]);
+
+
+
   const onSubmit = handleSubmit(async (data) => {
-    const response = await registerRequest(data);
-    console.log(response);
+    await singup(data);
+    console.log(user);
   });
   return (
     <div
@@ -13,6 +29,11 @@ function RegisterPage() {
       flex flex-col items-center justify-center h-screen bg-black
     "
     >
+      {
+      registerErrors.map((error, index) => (
+        <span key={index} className="text-red-500">{error}</span>
+      ))
+      }
       <form
         onSubmit={onSubmit}
         className="
@@ -38,6 +59,9 @@ function RegisterPage() {
             "
           placeholder="Username"
         />
+        {
+          errors.username && <span className="text-red-500">Username is required</span>
+        }
         <input
           type="text"
           {...register("email", {
@@ -57,6 +81,9 @@ function RegisterPage() {
             text-gray-700"
           placeholder="Email"
         />
+                {
+          errors.email && <span className="text-red-500">Email is required</span>
+        }
         <input
           type="password"
           {...register("password", {
@@ -77,6 +104,9 @@ function RegisterPage() {
             "
           placeholder="Password"
         />
+        {
+          errors.password && <span className="text-red-500">Password is required</span>
+        }
         <input
           type="submit"
           value="Register"
