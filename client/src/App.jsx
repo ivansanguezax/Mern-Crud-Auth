@@ -6,6 +6,7 @@ import TaskPage from './pages/TaskPage'
 import TaskFormPage from './pages/TaskFormPage'
 import ProfilePage from './pages/ProfilePage'
 import Homepage from './pages/Homepage'
+import ProtectedRoute from './ProtectedRoute'
 
 
 function App() {
@@ -16,10 +17,15 @@ function App() {
         <Route path="/" element={<Homepage/>} />      
         <Route path="/login" element={<LoginPage/>} />      
         <Route path="/register" element={<RegisterPage/>}/>      
+
+
+
+        <Route element={<ProtectedRoute/>}>
         <Route path="/tasks" element={<TaskPage/>} />      
         <Route path="/add-task" element={<TaskFormPage/>}/>      
         <Route path="/tasks/:id" element={<TaskFormPage/>} />      
-        <Route path="/profile" element={<ProfilePage/>} />      
+        <Route path="/profile" element={<ProfilePage/>} />    
+        </Route>  
       </Routes>
     </BrowserRouter>
     </AuthProvider>
