@@ -9,19 +9,21 @@ function RegisterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { singup, isAuth, user, errors: registerErrors } = useAuth();
+  const { singup, isAuthenticated, user, errors: registerErrors } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuth) {
+    if (isAuthenticated) {
       navigate("/tasks");
     }
-  }, [isAuth]);
+  } , [isAuthenticated, navigate])
 
   const onSubmit = handleSubmit(async (data) => {
     await singup(data);
     console.log(user);
   });
+
+  
   return (
     <div
       className="

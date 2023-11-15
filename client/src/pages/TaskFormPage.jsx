@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
+import { useTasks } from "../context/Taskcontext";
 
 function TaskFormPage() {
   const { register, handleSubmit } = useForm();
+  const  {createTask} = useTasks();
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+    createTask(data);
+  } );
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-black">
