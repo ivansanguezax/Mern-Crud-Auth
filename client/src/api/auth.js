@@ -6,3 +6,4 @@ export const registerRequest = (user) =>
 export const loginRequest = (user) => axios.post(`/login`, user);
 
 export const verifyTokenRequest = () => axios.get(`/verify`);
+
