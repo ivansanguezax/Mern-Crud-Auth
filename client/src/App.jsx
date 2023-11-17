@@ -10,17 +10,24 @@ import ProtectedRoute from "./ProtectedRoute";
 import { TaskProvider } from "./context/Taskcontext";
 import Navbar from "./components/Navbar";
 
+// App component containing the main application structure
 function App() {
   return (
     <AuthProvider>
       <TaskProvider>
+        {/* BrowserRouter for handling routes */}
         <BrowserRouter>
-        <Navbar/>
+          {/* Navbar component for navigation */}
+          <Navbar />
+
+          {/* Routes component to define different pages */}
           <Routes>
+            {/* Public routes */}
             <Route path="/" element={<Homepage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
 
+            {/* Protected routes */}
             <Route element={<ProtectedRoute />}>
               <Route path="/tasks" element={<TaskPage />} />
               <Route path="/add-task" element={<TaskFormPage />} />

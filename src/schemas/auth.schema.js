@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// Schema for user registration
 export const registerSchema = z.object({
   username: z
     .string({
@@ -23,6 +24,7 @@ export const registerSchema = z.object({
     .max(255),
 });
 
+// Schema for user login
 export const loginSchema = z.object({
   email: z
     .string({
